@@ -1,0 +1,19 @@
+@import "../styles/utilities.scss";
+
+.listItem {
+  margin: 1rem 0;
+  padding: 1rem 0 2rem 0;
+
+  &:global(.isFeatured) {
+    background-color: #d6400033;
+  }
+}
+
+.thumbnail {
+  width: 35vw;
+  height: auto;
+  margin-bottom: 1rem;
+  @include media-breakpoint-between(xs, md) {
+    width: 100%;
+  }
+}

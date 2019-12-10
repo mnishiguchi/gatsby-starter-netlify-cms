@@ -1,30 +1,36 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Row, Col, Card, CardText, CardBody } from 'reactstrap'
 
-const Pricing = ({ data }) => (
-  <div className="columns">
-    {data.map(price => (
-      <div key={price.plan} className="column">
-        <section className="section">
-          <h4 className="has-text-centered has-text-weight-semibold">
-            {price.plan}
-          </h4>
-          <h2 className="is-size-1 has-text-weight-bold has-text-primary has-text-centered">
-            ${price.price}
-          </h2>
-          <p className="has-text-weight-semibold">{price.description}</p>
-          <ul>
-            {price.items.map(item => (
-              <li key={item} className="is-size-5">
-                {item}
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
-    ))}
-  </div>
-)
+function Pricing({ data }) {
+  return (
+    <Row>
+      {data.map(({ plan, description, price, items }) => (
+        <Col key={plan}>
+          <Card className="border-0">
+            <CardBody>
+              <h4 className="h4 text-center">{plan}</h4>
+              <CardText
+                className="h1 text-center font-weight-bold"
+                style={{ margin: '4rem 0 2rem 0', color: '#d64000' }}
+              >
+                ${price}
+              </CardText>
+              <CardText>{description}</CardText>
+              <ul>
+                {items.map(item => (
+                  <li key={item} className="h5 font-weight-normal">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </CardBody>
+          </Card>
+        </Col>
+      ))}
+    </Row>
+  )
+}
 
 Pricing.propTypes = {
   data: PropTypes.arrayOf(

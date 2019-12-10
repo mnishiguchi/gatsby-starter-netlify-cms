@@ -1,12 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link, graphql } from 'gatsby'
+import { Container } from 'reactstrap'
 
 import Layout from '../components/Layout'
-import Features from '../components/Features'
 import BlogRoll from '../components/BlogRoll'
+import IntroBlurbs from '../components/IntroBlurbs'
 
-export const IndexPageTemplate = ({
+import css from './index-page.module.scss'
+
+export function IndexPageTemplate({
   image,
   title,
   heading,
@@ -14,105 +17,55 @@ export const IndexPageTemplate = ({
   mainpitch,
   description,
   intro,
-}) => (
-  <div>
-    <div
-      className="full-width-image margin-top-0"
-      style={{
-        backgroundImage: `url(${
-          !!image.childImageSharp ? image.childImageSharp.fluid.src : image
-        })`,
-        backgroundPosition: `top left`,
-        backgroundAttachment: `fixed`,
-      }}
-    >
-      <div
+}) {
+  const heroBackgroundImageUrl = !!image.childImageSharp
+    ? image.childImageSharp.fluid.src
+    : image
+
+  return (
+    <>
+      <header
+        className={`full-width-image ${css.hero}`}
         style={{
-          display: 'flex',
-          height: '150px',
-          lineHeight: '1',
-          justifyContent: 'space-around',
-          alignItems: 'left',
-          flexDirection: 'column',
+          backgroundImage: `url(${heroBackgroundImageUrl})`,
+          marginBottom: `5rem`,
         }}
       >
-        <h1
-          className="has-text-weight-bold is-size-3-mobile is-size-2-tablet is-size-1-widescreen"
-          style={{
-            boxShadow:
-              'rgb(255, 68, 0) 0.5rem 0px 0px, rgb(255, 68, 0) -0.5rem 0px 0px',
-            backgroundColor: 'rgb(255, 68, 0)',
-            color: 'white',
-            lineHeight: '1',
-            padding: '0.25em',
-          }}
-        >
-          {title}
-        </h1>
-        <h3
-          className="has-text-weight-bold is-size-5-mobile is-size-5-tablet is-size-4-widescreen"
-          style={{
-            boxShadow:
-              'rgb(255, 68, 0) 0.5rem 0px 0px, rgb(255, 68, 0) -0.5rem 0px 0px',
-            backgroundColor: 'rgb(255, 68, 0)',
-            color: 'white',
-            lineHeight: '1',
-            padding: '0.25em',
-          }}
-        >
-          {subheading}
-        </h3>
-      </div>
-    </div>
-    <section className="section section--gradient">
-      <div className="container">
-        <div className="section">
-          <div className="columns">
-            <div className="column is-10 is-offset-1">
-              <div className="content">
-                <div className="content">
-                  <div className="tile">
-                    <h1 className="title">{mainpitch.title}</h1>
-                  </div>
-                  <div className="tile">
-                    <h3 className="subtitle">{mainpitch.description}</h3>
-                  </div>
-                </div>
-                <div className="columns">
-                  <div className="column is-12">
-                    <h3 className="has-text-weight-semibold is-size-2">
-                      {heading}
-                    </h3>
-                    <p>{description}</p>
-                  </div>
-                </div>
-                <Features gridItems={intro.blurbs} />
-                <div className="columns">
-                  <div className="column is-12 has-text-centered">
-                    <Link className="btn" to="/products">
-                      See all products
-                    </Link>
-                  </div>
-                </div>
-                <div className="column is-12">
-                  <h3 className="has-text-weight-semibold is-size-2">
-                    Latest stories
-                  </h3>
-                  <BlogRoll />
-                  <div className="column is-12 has-text-centered">
-                    <Link className="btn" to="/blog">
-                      Read more
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className={css.heroTitleBox}>
+          <h1 className={css.heroTitle}>{title}</h1>
+          <h2 className={css.heroSubheading}>{subheading}</h2>
         </div>
-      </div>
-    </section>
-  </div>
-)
+      </header>
+
+      <Container fluid="sm">
+        <section className={css.bodySection}>
+          <h2 className="">{mainpitch.title}</h2>
+          <p className="lead">{mainpitch.description}</p>
+        </section>
+
+        <section className={css.bodySection}>
+          <h1 className="display-4 mb-3">{heading}</h1>
+          <p>{description}</p>
+        </section>
+
+        <section className={css.bodySection}>
+          <IntroBlurbs introBlurbs={intro.blurbs} />
+          <Link className="btn btn-outline-primary" to="/products">
+            See all products
+          </Link>
+        </section>
+
+        <section className={css.bodySection}>
+          <h2>Latest stories</h2>
+          <BlogRoll />
+          <Link className="btn btn-outline-primary" to="/blog">
+            Read more
+          </Link>
+        </section>
+      </Container>
+    </>
+  )
+}
 
 IndexPageTemplate.propTypes = {
   image: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
@@ -126,7 +79,7 @@ IndexPageTemplate.propTypes = {
   }),
 }
 
-const IndexPage = ({ data }) => {
+function IndexPage({ data }) {
   const { frontmatter } = data.markdownRemark
 
   return (

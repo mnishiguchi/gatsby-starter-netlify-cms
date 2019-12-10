@@ -1,0 +1,14 @@
+@import "../styles/utilities.scss";
+
+.hamburger {
+  display: block;
+  border: none;
+  background-color: transparent;
+  &:focus {
+    outline: none;
+  }
+
+  @include media-breakpoint-between(md, xl) {
+    display: none;
+  }
+}

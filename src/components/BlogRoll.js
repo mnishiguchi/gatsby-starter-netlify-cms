@@ -1,61 +1,52 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link, graphql, StaticQuery } from 'gatsby'
+import { Row, Col } from 'reactstrap'
 import PreviewCompatibleImage from './PreviewCompatibleImage'
+import css from './BlogRoll.module.scss'
 
-class BlogRoll extends React.Component {
-  render() {
-    const { data } = this.props
-    const { edges: posts } = data.allMarkdownRemark
+function BlogRoll({
+  data: {
+    allMarkdownRemark: { edges },
+  },
+  className = '',
+}) {
+  return (
+    <div className={className}>
+      {edges &&
+        edges.map(({ node: { id, frontmatter, fields, excerpt } }) => (
+          <Row
+            key={id}
+            className={`${css.listItem} ${
+              frontmatter.isFeatured ? 'isFeatured' : ''
+            }`}
+          >
+            {frontmatter.featuredimage ? (
+              <Col sm="12" md="3" className={css.thumbnail}>
+                <PreviewCompatibleImage
+                  imageInfo={{
+                    image: frontmatter.featuredimage,
+                    alt: `featured image thumbnail for post ${frontmatter.title}`,
+                  }}
+                />
+              </Col>
+            ) : null}
 
-    return (
-      <div className="columns is-multiline">
-        {posts &&
-          posts.map(({ node: post }) => (
-            <div className="is-parent column is-6" key={post.id}>
-              <article
-                className={`blog-list-item tile is-child box notification ${
-                  post.frontmatter.featuredpost ? 'is-featured' : ''
-                }`}
-              >
-                <header>
-                  {post.frontmatter.featuredimage ? (
-                    <div className="featured-thumbnail">
-                      <PreviewCompatibleImage
-                        imageInfo={{
-                          image: post.frontmatter.featuredimage,
-                          alt: `featured image thumbnail for post ${post.frontmatter.title}`,
-                        }}
-                      />
-                    </div>
-                  ) : null}
-                  <p className="post-meta">
-                    <Link
-                      className="title has-text-primary is-size-4"
-                      to={post.fields.slug}
-                    >
-                      {post.frontmatter.title}
-                    </Link>
-                    <span> &bull; </span>
-                    <span className="subtitle is-size-5 is-block">
-                      {post.frontmatter.date}
-                    </span>
-                  </p>
-                </header>
-                <p>
-                  {post.excerpt}
-                  <br />
-                  <br />
-                  <Link className="button" to={post.fields.slug}>
-                    Keep Reading →
-                  </Link>
-                </p>
-              </article>
-            </div>
-          ))}
-      </div>
-    )
-  }
+            <Col sm="12" md="9">
+              <h4 className="mb-3">
+                <Link to={fields.slug}>{frontmatter.title}</Link>
+                <br />
+                <small className="text-muted h6">{frontmatter.date}</small>
+              </h4>
+
+              <p>{excerpt}</p>
+
+              <Link to={fields.slug}>Keep Reading →</Link>
+            </Col>
+          </Row>
+        ))}
+    </div>
+  )
 }
 
 BlogRoll.propTypes = {
@@ -85,7 +76,7 @@ export default () => (
                 title
                 templateKey
                 date(formatString: "MMMM DD, YYYY")
-                featuredpost
+                isFeatured
                 featuredimage {
                   childImageSharp {
                     fluid(maxWidth: 120, quality: 100) {

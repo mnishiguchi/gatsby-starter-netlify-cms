@@ -1,0 +1,30 @@
+@import "../styles/variables.scss";
+
+.footer {
+  background-color: $coffee;
+  padding: 3rem 0 1rem 0;
+  a {
+    color: $white;
+    &:hover {
+      color: lighten($coffee, 60%)
+    }
+  }
+}
+
+.logo {
+  width: 14rem;
+  height: 10rem;
+}
+
+.social {
+  display: flex;
+  justify-content: center;
+  padding: 2em;
+}
+
+.social a {
+  font-size: 2rem;
+  margin: 0.5em;
+  vertical-align: middle;
+  display: inline;
+}
