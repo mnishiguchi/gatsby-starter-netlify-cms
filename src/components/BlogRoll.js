@@ -17,9 +17,7 @@ function BlogRoll({
         edges.map(({ node: { id, frontmatter, fields, excerpt } }) => (
           <Row
             key={id}
-            className={`${css.listItem} ${
-              frontmatter.isFeatured ? 'isFeatured' : ''
-            }`}
+            className={`${css.listItem}`}
           >
             {frontmatter.featuredimage ? (
               <Col sm="12" md="3" className={css.thumbnail}>
@@ -76,7 +74,6 @@ export default () => (
                 title
                 templateKey
                 date(formatString: "MMMM DD, YYYY")
-                isFeatured
                 featuredimage {
                   childImageSharp {
                     fluid(maxWidth: 120, quality: 100) {

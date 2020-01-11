@@ -3,10 +3,6 @@
 .listItem {
   margin: 1rem 0;
   padding: 1rem 0 2rem 0;
-
-  &:global(.isFeatured) {
-    background-color: #d6400033;
-  }
 }
 
 .thumbnail {

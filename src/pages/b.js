@@ -1,8 +1,8 @@
 import React from 'react'
 import { Container } from 'reactstrap'
 
-import Layout from '../../components/Layout'
-import BlogRoll from '../../components/BlogRoll'
+import Layout from '../components/Layout'
+import BlogRoll from '../components/BlogRoll'
 
 export default function BlogIndexPage() {
   return (
