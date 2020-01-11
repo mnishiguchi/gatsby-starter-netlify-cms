@@ -36,55 +36,10 @@ function AppHeader() {
           <Link className="nav-link" to="/about">
             About
           </Link>
-          <Link className="nav-link" to="/products">
-            Products
-          </Link>
           <Link className="nav-link" to="/blog">
             Blog
           </Link>
-          <Link className="nav-link" to="/contact">
-            Contact
-          </Link>
-          <Link className="nav-link" to="/contact/examples">
-            Form Examples
-          </Link>
-
-          <UncontrolledDropdown nav inNavbar>
-            <DropdownToggle nav caret>
-              Options
-            </DropdownToggle>
-            <DropdownMenu right>
-              <a
-                className="dropdown-item"
-                href="https://github.com/mnishiguchi/gatsby-starter-netlify-cms"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Repo
-              </a>
-              <a
-                className="dropdown-item"
-                href="https://mnishiguchi-gatsby-netlify-cms.netlify.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Demo
-              </a>
-              <DropdownItem>Option 2</DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>Reset</DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
         </Nav>
-        {/* Icon can mess up default navbar styles when it is large */}
-        <a
-          className="navbar-text"
-          href="https://github.com/mnishiguchi/gatsby-starter-netlify-cms"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FontAwesomeIcon icon={faGithub} />
-        </a>
       </Collapse>
     </Navbar>
   )
